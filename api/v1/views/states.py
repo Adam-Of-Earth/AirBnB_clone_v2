@@ -6,4 +6,47 @@ from flask import abort, jsonify, make_response, request
 from flasgger import Swagger, swag_from
 from models import storage
 
-@app_views.route('/states', strict
+@app_views.route('/states', strict_slashes=False, methods=['GET', 'POST'])
+@swag_from('swagger_yaml/states_one.yml', methods=['GET', 'POST'])
+def states_all():
+    """pulls list of all states"""
+    states = []
+    if request.method == 'GET':
+        states = storage.all('State')
+        states = list(obj.to_json() for obj in states.values())
+        return jsonify(states)
+    if request.method == 'POST':
+        json_req = request.get_json()
+        if req_json is None:
+            about(400, 'Not a JSON')
+        if req_json.get("name") is None:
+            abort(400, 'Missing name')
+        State = CNC.get("State")
+        object = State(**json_req)
+        object.save()
+        return jsonify(object.to_json()), 201
+
+@app_views.route('states/<string:state_id>',
+                 strict_slashes=False,
+                 methods=['GET', 'DELETE', 'PUT'])
+@swag_from('swagger_yaml/states_all.yml',
+           methods=['PUT', 'GET', 'DELETE'])
+def states_one(state_id=None):
+    """pulls a specifc state"""
+    state_obj = storage.get('State', state_id)
+    if state_obj is None:
+        abort(404)
+
+    if request.method == 'GET':
+        return jsonify(state_obj.to_dict())
+
+    if request.method == 'DELETE':
+        state_obj.delete()
+        del state_obj
+        return jsonify({})
+    if request.method == 'PUT':
+        json_req = request.get_json()
+        if json_req is None:
+            abourt(400, 'Not a JSON')
+        state_obj.bm_update(json_req)
+        return jsonify(state_obj.to_json())
