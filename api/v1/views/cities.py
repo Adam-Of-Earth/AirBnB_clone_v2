@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 
 from api.v1.views import app_views
-from flask import abort, jsonify, request
+from flask import Flask, abort, jsonify, request
 from models import storage, CNC
-from flasgger.utils import swag_from
+
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'])
-@swag_from('swagger_yaml/cities_by_state.yml', methods=['GET', 'POST'])
 def cities_per_state(state_id=None):
     """lists all cities for states"""
 
@@ -35,7 +34,6 @@ def cities_per_state(state_id=None):
 
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE', 'PUT'])
-@swag_from('swagger_yaml/cities_id.yml', methods=['GET', 'DELETE', 'PUT'])
 def cities_with_id(city_id=None):
     """list cities from a state"""
 
