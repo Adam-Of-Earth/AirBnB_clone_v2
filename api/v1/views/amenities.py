@@ -4,11 +4,8 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 import models
-from models.amenity import Amenity
-from flasgger.utils import swag_from
 
 @app_views.route('/amenities/', strict_slashes=False, methods=['GET', 'POST'])
-@swag_from('swagger_yaml/amenities.yml', methods=['GET', 'POST'])
 def amenities(amenity_id=None):
     """amenities route with no ID"""
     if request.method == 'GET':
