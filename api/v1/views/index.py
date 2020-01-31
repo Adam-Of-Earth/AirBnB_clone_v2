@@ -10,7 +10,7 @@ from models import storage
 def status():
     """ Returns a JSON status """
     
-    return jsonify(status="OK")
+    return {"status": "OK"}
 
 @app_views.route('/stats', strict_slashes=False)
 def num_objects():
