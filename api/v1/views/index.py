@@ -2,7 +2,7 @@
 """ Module which creates a flask route """
 
 from api.v1.views import app_views
-from flask import flask, jsonify
+from flask import Flask, jsonify
 from models import storage
 
 
