@@ -2,7 +2,7 @@
 """ Module which creates a flask route """
 
 from api.v1.views import app_views
-from flask import jsonify
+from flask import Flask, jsonify
 from models import storage
 
 
@@ -10,7 +10,7 @@ from models import storage
 def status():
     """ Returns a JSON status """
     
-    return jsonify(status="OK")
+    return {"status": "OK"}
 
 @app_views.route('/stats', strict_slashes=False)
 def num_objects():
