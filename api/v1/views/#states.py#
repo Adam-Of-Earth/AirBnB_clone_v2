@@ -6,6 +6,7 @@ from flask import Flask, abort, jsonify, make_response, request
 from models import storage
 
 @app_views.route('/states', strict_slashes=False, methods=['GET', 'POST'])
+@swag_from('swagger_yaml/states_one.yml', methods=['GET', 'POST'])
 def states_all():
     """pulls list of all states"""
     states = []
@@ -27,6 +28,8 @@ def states_all():
 @app_views.route('states/<string:state_id>',
                  strict_slashes=False,
                  methods=['GET', 'DELETE', 'PUT'])
+@swag_from('swagger_yaml/states_all.yml',
+           methods=['PUT', 'GET', 'DELETE'])
 def states_one(state_id=None):
     """pulls a specifc state"""
     state_obj = storage.get('State', state_id)
