@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 """creates a flask route that returns json status"""
 
 from api.v1.views import app_views
