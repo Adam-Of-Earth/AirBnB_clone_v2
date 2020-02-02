@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Module for status of API """
 
+import os
 from flask import Flask, make_response, jsonify
 from models import storage
 from flask_cors import CORS

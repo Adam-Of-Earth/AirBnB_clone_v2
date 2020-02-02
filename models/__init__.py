@@ -4,10 +4,6 @@ initialize the models package
 """
 
 from os import getenv
-from models.base_model import BaseModel
-from models.amenity import Amenity
-from models.city import City
-from models.state import State
 
 
 storage_t = getenv("HBNB_TYPE_STORAGE")
