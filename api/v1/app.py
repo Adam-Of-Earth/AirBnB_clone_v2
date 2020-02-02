@@ -16,14 +16,12 @@ CORS(app, origins='0.0.0.0')
 @app.teardown_appcontext
 def teardown(self):
     """ This closes storage """
-    
     models.storage.close()
 
 
 @app.errorhandler(404)
 def not_found(error):
     """ Return a 404 error message """
-    
     return make_response(jsonify({"error": "Not found"}), 404)
 
 
