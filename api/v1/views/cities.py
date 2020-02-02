@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""flask path for cities"""
 from api.v1.views import app_views
 from flask import Flask, abort, jsonify, request
 import models
