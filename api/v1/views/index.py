@@ -9,23 +9,24 @@ from models import storage
 @app_views.route('/status', strict_slashes=False)
 def status():
     """ Returns a JSON status """
-    
+
     return {"status": "OK"}
+
 
 @app_views.route('/stats', strict_slashes=False)
 def num_objects():
     """ Returns count of objects by type """
 
     new_Dict = {}
-    
+
     classes = {
-    "Amenity": "amenities",
-    "City": "cities",
-    "Place": "places",
-    "Review": "reviews",
-    "State": "states",
-    "User": "users"
-}
+        "Amenity": "amenities",
+        "City": "cities",
+        "Place": "places",
+        "Review": "reviews",
+        "State": "states",
+        "User": "users"
+    }
 
     for key, value in classes.items():
         new_Dict[value] = models.storage.count(key)

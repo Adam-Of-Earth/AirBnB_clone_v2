@@ -2,8 +2,7 @@
 
 from api.v1.views import app_views
 from flask import Flask, abort, jsonify, request
-from models import storage, CNC
-
+import models
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'])
@@ -17,7 +16,7 @@ def cities_per_state(state_id=None):
     if request.method == 'GET':
         all_cities = storage.all('City')
         state_cities = [obj.to_json() for obj in all_cities.values()
-    if obj.state_id == state_id]
+                        if obj.state_id == state_id]
         return jsonify(state_cities)
 
     if request.method == 'POST':
@@ -26,7 +25,6 @@ def cities_per_state(state_id=None):
         abort(400, 'Not a JSON')
     if req_json.get("name") is None:
         abort(400, 'Missing name')
-    City = CNC.get("City")
     req_json['state_id'] = state_id
     new_object = City(**req_json)
     new_object.save()
